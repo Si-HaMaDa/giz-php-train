@@ -1,24 +1,18 @@
 <?php
-session_start();
+
+require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $db_servername = "localhost";
-    $db_username = "root";
-    $db_password = "root";
-    $db_name = "giz-test";
 
     try {
-        $conn = new PDO("mysql:host=$db_servername;dbname=$db_name", $db_username, $db_password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
         // die($sql);
+
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
