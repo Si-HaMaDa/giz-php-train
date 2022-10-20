@@ -1,6 +1,19 @@
 <?php
 require_once 'header.php';
 
+if (!empty($_GET['delete'])) {
+    $id = (int) $_GET['delete'];
+
+    $sql = "DELETE FROM users WHERE id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt = $stmt->execute();
+
+    $_SESSION['success'] = "User Deleted!";
+
+    header("location: users.php");
+    die;
+}
+
 try {
     $sql = "SELECT * FROM users";
 
@@ -51,7 +64,7 @@ $conn = null;
                     <td><?= $user['email'] ?></td>
                     <td>
                         <a href="users-edit.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="javascript:;" class="btn btn-sm btn-danger">Delete</a>
+                        <a href="?delete=<?= $user['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
