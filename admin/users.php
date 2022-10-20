@@ -51,7 +51,7 @@ $conn = null;
                         <td><?= $user['name'] ?></td>
                         <td><?= $user['email'] ?></td>
                         <td>
-                            <a href="javascript:;" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="users-edit.php" class="btn btn-sm btn-primary">Edit</a>
                             <a href="javascript:;" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
