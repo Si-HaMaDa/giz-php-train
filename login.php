@@ -1,5 +1,44 @@
 <?php
 session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $db_servername = "localhost";
+    $db_username = "root";
+    $db_password = "root";
+    $db_name = "giz-test";
+
+    try {
+        $conn = new PDO("mysql:host=$db_servername;dbname=$db_name", $db_username, $db_password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+
+        // die($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        $result = $stmt->fetch();
+
+        if ($result) {
+            $_SESSION['user_id'] = $result['id'];
+            $_SESSION['user_name'] = $result['name'];
+            header("location: index.php");
+        } else {
+            $error = "Check your email and password!";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn = null;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -99,6 +138,11 @@ session_start();
             <?php if (!empty($_SESSION['success'])) {
                 echo '<p class="text-success">' . $_SESSION['success'] . '</p>';
                 unset($_SESSION['success']);
+            }
+            ?>
+
+            <?php if (!empty($error)) {
+                echo '<p class="text-danger">' . $error . '</p>';
             }
             ?>
 
