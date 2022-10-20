@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -88,8 +91,17 @@
 <body class="text-center">
 
     <main class="form-signin w-100 m-auto">
+
+
         <form method="POST">
             <img class="mb-4" src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+
+            <?php if (!empty($_SESSION['success'])) {
+                echo '<p class="text-success">' . $_SESSION['success'] . '</p>';
+                unset($_SESSION['success']);
+            }
+            ?>
+
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">

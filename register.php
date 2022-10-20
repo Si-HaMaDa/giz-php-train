@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -20,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // die($sql);
 
         $conn->exec($sql);
+
+        $_SESSION['success'] = "Youe Account created successfully";
 
         header("location: login.php");
     } catch (PDOException $e) {
