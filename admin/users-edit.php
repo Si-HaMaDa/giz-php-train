@@ -18,8 +18,41 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
-$conn = null;
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    try {
+        $sql = "UPDATE users SET name = :name, email = :email";
+
+        if (!empty($password))
+            $sql .= ", password = :password";
+
+        $sql .= " WHERE id = :id";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+
+        if (!empty($password))
+            $stmt->bindParam(':password', $password);
+
+        $stmt->execute();
+
+        $_SESSION['success'] = "Account updated successfully";
+
+        header("location: users.php");
+        die;
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+$conn = null;
 ?>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
