@@ -1,12 +1,16 @@
 <?php
-
+// TODO:: if user logged in then the user can't register again
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // TODO:: Validation data first
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // TODO:: skip if validation error
+    // you can do it better when using funtion or OOP
     try {
         $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
 
@@ -23,8 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['success'] = "Your Account created successfully";
 
         header("location: login.php");
+        die;
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+        $error = "Error: " . $e->getMessage();
     }
     $conn = null;
 }
@@ -123,6 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main class="form-signin w-100 m-auto">
         <form method="POST">
             <img class="mb-4" src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+
+            <!-- TODO:: display any validation or logic errors -->
+
             <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
             <div class="form-floating">

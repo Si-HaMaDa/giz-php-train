@@ -1,3 +1,5 @@
+<!-- TODO:: check if user logged in first -->
+
 <?php include_once './../config.php'; ?>
 <!doctype html>
 <html lang="en">

@@ -1,14 +1,19 @@
 <?php
+// TODO:: if user is logged in the user can't login again
 
 require_once 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+    // TODO:: Validation data first
     $email = $_POST['email'];
     $password = $_POST['password'];
 
 
+    // TODO:: skip if validation error
+    // you can do it better when using funtion or OOP
     try {
+        // TODO:: prepare the query first then bind params
         $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
         // die($sql);
@@ -25,11 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $result['id'];
             $_SESSION['user_name'] = $result['name'];
             header("location: index.php");
+            die;
         } else {
             $error = "Check your email and password!";
         }
     } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+        $error = "Error: " . $e->getMessage();
     }
     $conn = null;
 }

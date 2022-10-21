@@ -4,6 +4,7 @@ require_once 'header.php';
 try {
     $id = (int) $_GET['id'];
 
+    // TODO:: prepare the query first then bind params
     $sql = "SELECT * FROM users WHERE id = '$id'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
@@ -21,10 +22,14 @@ try {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    // TODO:: Validation data first
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // TODO:: skip if validation error
+    // you can do it better when using funtion or OOP
     try {
         $sql = "UPDATE users SET name = :name, email = :email";
 

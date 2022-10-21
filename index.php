@@ -1,3 +1,5 @@
+<!-- TODO:: check if user looged in first -->
+
 <pre>
 <?php
 session_start();
