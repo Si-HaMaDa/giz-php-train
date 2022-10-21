@@ -64,7 +64,8 @@ $conn = null;
                     <td><?= $user['email'] ?></td>
                     <td>
                         <a href="users-edit.php?id=<?= $user['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="?delete=<?= $user['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
+                        <!-- <a href="?delete=<?= $user['id'] ?>" class="btn btn-sm btn-danger">Delete</a> -->
+                        <button type="button" data-id="<?= $user['id'] ?>" onclick="deleteClick(this)" class="btn btn-sm btn-danger">Delete</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -72,5 +73,16 @@ $conn = null;
     </table>
 </div>
 
+<script>
+    function deleteClick(e) {
+        console.log(e)
+        let id = e.getAttribute('data-id');
+        let answer = confirm("Are you sure to delete user " + id + "?")
+        if (answer) {
+            window.location = "?delete=" + id
+        }
+
+    }
+</script>
 
 <?php require_once 'footer.php'; ?>
