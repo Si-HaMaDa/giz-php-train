@@ -43,6 +43,10 @@ $conn = null;
             <span data-feather="calendar" class="align-text-bottom"></span>
             This week
         </button>
+        <a href="users-add.php" class="btn btn-sm btn-outline-primary mx-2">
+            <span data-feather="plus" class="align-text-bottom"></span>
+            Add user
+        </a>
     </div>
 </div>
 
