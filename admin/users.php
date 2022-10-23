@@ -23,7 +23,7 @@ try {
     $stmt->execute();
 
     // set the resulting array to associative
-    $users = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    // $users = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
     $users = $stmt->fetchAll();
 } catch (PDOException $e) {

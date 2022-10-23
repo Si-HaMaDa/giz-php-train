@@ -9,7 +9,7 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    // $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $user = $stmt->fetch();
 
     if (!$user) {
